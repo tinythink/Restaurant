@@ -30,4 +30,6 @@ $(function() {
 	$('div.dot span').on('mouseleave', function() {
 		timeId = setTimeout(collapseControl, 5000);
 	});
+
+	console.log($('#menubar').css('display') === 'none');
 });
