@@ -12,7 +12,7 @@ $(function() {
 			},
 			success: function(data) {
 				if (data.result === 'success') {
-					location.href = data.data;
+					window.open(data.data);
 				}
 			}
 		});
