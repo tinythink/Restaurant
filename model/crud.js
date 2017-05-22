@@ -67,6 +67,12 @@ var CRUD = function() {
 		});
 	};
 
+	var getAllNews = function(callback) {
+		News.find({}).sort({date: -1}).exec(function(err, doc) {
+			callback(err, doc);
+		});
+	};
+
 	var getRoot = function(root, callback) {
 		Root.find(root).exec(function(err, doc) {
 			callback(err, doc);
@@ -85,6 +91,12 @@ var CRUD = function() {
 		});
 	};
 
+	var deleteNewsByDate = function(date, callback) {
+		News.remove({date: date}, function(err) {
+			callback(err);
+		});
+	};
+
 	return {
 		saveBreakfast: saveBreakfast,
 		saveLunch: saveLunch,
@@ -93,7 +105,9 @@ var CRUD = function() {
 		getNews: getNews,
 		getRoot: getRoot,
 		getNewsByDate: getNewsByDate,
-		updateNewsByDate: updateNewsByDate
+		updateNewsByDate: updateNewsByDate,
+		getAllNews: getAllNews,
+		deleteNewsByDate: deleteNewsByDate
 	}
 }
 

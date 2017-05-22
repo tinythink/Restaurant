@@ -5,6 +5,10 @@
 	box-sizing: border-box;
 }
 
+::selection {
+	background-color: #E8F1F5;
+}
+
 body {
 	color: #333;
 	line-height: 1.5;
@@ -39,8 +43,10 @@ ul.nav-list a {
 }
 
 h2 {
+	height: 48px;
+	line-height: 48px;
 	background-color: #3f141b;
-	padding: 8px 18px;
+	padding: 0 18px;
 	color: #fff;
 }
 /* base style end */
@@ -86,6 +92,8 @@ button:hover {
 
 .news-list {
 	background-color: #fff;
+	height: 490px;
+	overflow: hidden;
 }
 
 .news-item {
@@ -145,7 +153,27 @@ span.delete {
 	transition: visibility .3s;
 }
 
-.model-edit {
+div.page-control {
+	height: 48px;
+	line-height: 48px;
+	background-color: #fff;
+	text-align: center;
+}
+
+div.page-control span {
+	color: #A55540;
+	cursor: pointer;
+}
+
+div.page-control span:hover {
+	text-decoration: underline;
+}
+
+span.pre-page-control {
+	margin-right: 12px;
+}
+
+.model-edit, .model-delete {
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -156,17 +184,27 @@ span.delete {
 	visibility: hidden;
 }
 
-.model-edit.show {
+.model-edit.show, .model-delete.show {
 	visibility: visible;
 }
 
-.model-edit form {
+.model-edit form, .model-delete .confirm-delete {
 	padding: 24px 32px;
 	width: 70%;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
+	background-color: #fff;
+}
+
+.model-delete .confirm-delete {
+	width: 45%;
+	text-align: center;
+}
+
+.confirm-delete button {
+	margin-right: 12px;
 }
 
 .model-edit form input, .model-edit form textarea {
@@ -180,4 +218,5 @@ span.delete {
 .model-edit form button {
 	margin-right: 24px;
 }
+
 /* news style end */

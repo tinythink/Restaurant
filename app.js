@@ -18,15 +18,6 @@ app.get('/login.html', function( req, res ) {
 	res.sendFile(path.join(__dirname, 'views/login.html'));
 });
 
-app.get('/getnews', function(req, res) {
-	MongoHelper.getNews(function(err, result) {
-		if (err) {
-			return next(err);
-		}
-		res.send(result);
-	});
-});
-
 app.get('/test', function(req, res) {
 	MongoHelper.saveNews({
 		author: 'hwaphon',
@@ -78,6 +69,34 @@ app.post('/updatenews', function(req, res) {
 			return next(err);
 		}
 	});
+});
+
+app.get('/getnews', function(req, res) {
+	MongoHelper.getNews(function(err, result) {
+		if (err) {
+			return next(err);
+		}
+		res.send(result);
+	});
+});
+
+app.get('/getallnews', function(req, res) {
+	MongoHelper.getAllNews(function(err, result) {
+		if (err) {
+			return next(err);
+		}
+		res.send(result);
+	});
+});
+
+app.post('/deletenews', function(req, res) {
+	MongoHelper.deleteNewsByDate(req.body.date, function(err) {
+		if (err) {
+			return next(err);
+		} else {
+			res.send({result: true});
+		}
+	})
 });
 
 
