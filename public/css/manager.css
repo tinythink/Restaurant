@@ -1,1 +1,183 @@
-*
+/* base style start */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	color: #333;
+	line-height: 1.5;
+	background-color: #eee;
+}
+
+ul.nav-list {
+	width: 80%;
+	height: 48px;
+	background-color: #28050b;
+	margin: 0 auto;
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+ul.nav-list > li {
+	flex: 1 1 auto;
+	text-align: center;
+	height: 100%;
+	line-height: 48px;
+	list-style: none;
+}
+
+ul.nav-list a {
+	text-decoration: none;
+	color: #fff;
+}
+
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+h2 {
+	background-color: #3f141b;
+	padding: 8px 18px;
+	color: #fff;
+}
+/* base style end */
+
+/* news style start */
+form {
+	background-color: #fff;
+	padding: 8px 18px;
+}
+
+p {	
+	margin-bottom: 8px;
+}
+
+p label {
+	display: inline-block;
+	width: 96px;
+}
+
+p input {
+	padding: 4px 8px;
+	border: 1px solid #ccc;
+}
+
+p textarea {
+	padding: 4px 8px;
+	border: 1px solid #ccc;
+	resize: none;
+}
+
+button {
+	background-color: #3f141b;
+	color: #fff;
+	padding: 8px 24px;
+	border: none;
+	cursor: pointer;
+	transition: background-color .2s;
+}
+
+button:hover {
+	background-color: #28050b;
+}
+
+.news-list {
+	background-color: #fff;
+}
+
+.news-item {
+	padding: 8px 18px;
+	line-height: 32px;
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+
+span.title {
+	flex: 1 1 480px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+span.date, div.control {
+	width: 128px;
+	text-align: center;
+}
+
+div.control {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: center;
+	visibility: hidden;
+}
+
+span.edit {
+	width: 24px;
+	height: 24px;
+	background-image: url('../imgs/edit.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-right: 4px;
+}
+
+span.delete {
+	width: 24px;
+	height: 24px;
+	background-image: url('../imgs/delete.png');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.news-item:hover {
+	background-color: rgba(0,0,0,.15);
+	transition: background-color .2s;
+}
+
+.news-item:hover > div.control {
+	visibility: visible;
+	transition: visibility .3s;
+}
+
+.model-edit {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 10;
+	background-color: rgba(0,0,0,.1);
+	visibility: hidden;
+}
+
+.model-edit.show {
+	visibility: visible;
+}
+
+.model-edit form {
+	padding: 24px 32px;
+	width: 70%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.model-edit form input, .model-edit form textarea {
+	width: 100%;
+}
+
+.model-edit form input {
+	height: 36px;
+}
+
+.model-edit form button {
+	margin-right: 24px;
+}
+/* news style end */

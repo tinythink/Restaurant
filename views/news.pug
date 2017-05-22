@@ -1,8 +1,7 @@
 extends layout.pug
-block scripts
-	script(src="js/news.js")
 block content
-	form()
+	h2 添加新闻
+	form(name="newsform")
 		p
 			label(for="title") 新闻标题
 			input(type="text" name="news-title" id="title" required)
@@ -10,7 +9,24 @@ block content
 			label(for="author") 作者
 			input(type="text" name="news-author")
 		p
-			label(for="nbody") 正文
-			textarea(name="news-body" id="nbody" rows="10" cols="60" required)
+			label
+			textarea(name="news-body" id="nbody" rows="20" cols="80" placeholder="请输入新闻内容..." required)
 		p
+			label
 			button(id="add") 添加新闻
+	h2 新闻列表
+	.news-list
+	.model-edit
+		form(name="edit-form")
+			p
+				label 新闻标题
+				input(type="text" name="edit-news-title" required)
+			p
+				label 作者
+				input(type="text" name="edit-news-author")
+			p
+				label
+				textarea(name="edit-news-body" rows="20" cols="80" placeholder="请输入新闻内容..." required)
+			p
+				button(id="edit-submit") 修改新闻
+				button(class="edit-cancel") 取消

@@ -2,22 +2,24 @@ doctype html
 html
 	head
 		title 后台信息管理
+		link(href="css/manager.css" rel="stylesheet")
 		script(src="js/jquery.min.js")
-		block scripts
+		script(src="js/manager.js")
 	body
 		header
 			nav
-				ul
+				ul.nav-list
 					li
-						a(href="#") 新闻管理
+						a(href="#" name="news-page") 新闻管理
 					li
-						a(href="#") 早餐管理	
+						a(href="#" name="breakfast-page") 早餐管理	
 					li
-						a(href="#") 午餐管理
+						a(href="#" name="lunch-page") 午餐管理
 					li
-						a(href="#") 晚餐管理
+						a(href="#" name="dinner-page") 晚餐管理
 
-		block content
+		.container
+			block content
 
 
 

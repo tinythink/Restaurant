@@ -71,7 +71,19 @@ var CRUD = function() {
 		Root.find(root).exec(function(err, doc) {
 			callback(err, doc);
 		})
-	}
+	};
+
+	var getNewsByDate = function(date, callback) {
+		News.find({date: date}).limit(1).exec(function(err, doc) {
+			callback(err, doc);
+		});
+	};
+
+	var updateNewsByDate = function(news, callback) {
+		News.update({date: news.date}, {title: news.title, author: news.author, body: news.body}, function(err) {
+			callback(err);
+		});
+	};
 
 	return {
 		saveBreakfast: saveBreakfast,
@@ -79,7 +91,9 @@ var CRUD = function() {
 		saveDinner: saveDinner,
 		saveNews: saveNews,
 		getNews: getNews,
-		getRoot: getRoot
+		getRoot: getRoot,
+		getNewsByDate: getNewsByDate,
+		updateNewsByDate: updateNewsByDate
 	}
 }
 

@@ -45,9 +45,13 @@ app.post('/login', function(req, res) {
 		}
 
 		if (result) {
-			res.render('news');
+			res.redirect('/manager');
 		}
 	});
+});
+
+app.get('/manager', function(req, res) {
+	res.render('news');
 });
 
 app.post('/addnews', function(req, res) {
@@ -55,8 +59,24 @@ app.post('/addnews', function(req, res) {
 		if (error) {
 			return next(error);
 		}
+		res.send('true');
+	});
+});
 
-		res.send(true);
+app.post('/getnewsbydate', function(req, res) {
+	MongoHelper.getNewsByDate(req.body.date, function(err, result) {
+		if (err) {
+			return next(err);
+		}
+		res.send(result);
+	})
+});
+
+app.post('/updatenews', function(req, res) {
+	MongoHelper.updateNewsByDate(req.body, function(err) {
+		if (err) {
+			return next(err);
+		}
 	});
 });
 
