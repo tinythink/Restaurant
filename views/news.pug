@@ -1,0 +1,16 @@
+extends layout.pug
+block scripts
+	script(src="js/news.js")
+block content
+	form()
+		p
+			label(for="title") 新闻标题
+			input(type="text" name="news-title" id="title" required)
+		p
+			label(for="author") 作者
+			input(type="text" name="news-author")
+		p
+			label(for="nbody") 正文
+			textarea(name="news-body" id="nbody" rows="10" cols="60" required)
+		p
+			button(id="add") 添加新闻

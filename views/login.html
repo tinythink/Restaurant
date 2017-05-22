@@ -6,16 +6,12 @@
 	<link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-	<form action="">
+	<form action="/login" method="POST">
 		<img src="imgs/f4.jpg">
 		<h2>创意餐厅后台登录</h2>
-		<input type="text" placeholder="用户名" name="username">
-		<input type="password" placeholder="密码" name="password">
-
-		<button id="login">登录</button>
+		<input type="text" placeholder="用户名" name="username" required="required">
+		<input type="password" placeholder="密码" name="password" required="required">
+		<button id="login" type="submit">登录</button>
 	</form>
-
-	<script src="js/jquery.min.js"></script>
-	<script src="js/login.js"></script>
 </body>
 </html>

@@ -31,5 +31,26 @@ $(function() {
 		timeId = setTimeout(collapseControl, 5000);
 	});
 
-	console.log($('#menubar').css('display') === 'none');
+	/* AJAX GET NEWS */
+	$.ajax({
+		url: '/getnews',
+		type: 'GET',
+		dataType: 'json',
+		success: function(result) {
+			setNews(result);
+		}
+	});
+
+	function setNews(newsArr) {
+		if (newsArr) {
+			newsArr.forEach(function(value, index) {
+				var $item = $('.newsitem').eq(index);
+
+				var title = value.title;
+				title = title.length >= 12 ? title.slice(0,12) + '...' : title;
+				$item.find('.header').text(title);
+				$item.find('.newscontent p').text(value.body);
+			});
+		}
+	}
 });

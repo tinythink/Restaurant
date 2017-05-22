@@ -208,10 +208,13 @@ div.newscontent {
 }
 
 div.newscontent p{
-	display: inline-block;
 	width: 100%;
-	height: 6.4rem;
+	height: 6.3rem;
+	line-height: 2.1rem;
 	color: #333;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
 	overflow: hidden;
 }
 
