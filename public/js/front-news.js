@@ -52,8 +52,7 @@ $(function() {
 					date: id
 				},
 				success: function(result) {
-					console.log(result.result);
-					windows.location(result.result);
+					
 				}
 			});
 		})

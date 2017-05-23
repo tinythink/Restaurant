@@ -27,7 +27,7 @@ app.get('/news', function(req, res) {
 });
 
 app.get('/login.html', function( req, res ) {
-	res.sendFile(path.join(__dirname, 'views/login.html'));
+	res.render('login');
 });
 
 app.get('/test', function(req, res) {
@@ -46,7 +46,7 @@ app.post('/login', function(req, res) {
 		if (err) {
 			return next(err);
 		}
-
+		console.log(result);
 		if (result) {
 			res.redirect('/manager');
 		}

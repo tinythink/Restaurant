@@ -1,0 +1,12 @@
+doctype html
+html
+	head
+		title 登录
+		link(rel="stylesheet" href="css/login.css")
+	body
+		form(action="/login" method="POST")
+			img(src="imgs/f4.jpg")
+			h2 创意餐厅后台登录
+			input(type="text" placeholder="用户名" name="username" required="required")
+			input(type="password" placeholder="密码" name="password" required="required")
+			button(id="login" type="submit") 登录
