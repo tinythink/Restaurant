@@ -73,6 +73,7 @@ body {
 	color: #fff; 
 	transition: all .2s;
 	margin: 0 0.8rem;
+	cursor: pointer;
 }
 
 #menubar li:hover a {

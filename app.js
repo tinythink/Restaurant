@@ -11,7 +11,19 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function( req, res ) {
-	res.sendFile(path.join(__dirname, 'views/index.html'));
+	res.render('home');
+});
+
+app.post('/newsitem/', function(req, res) {
+	res.redirect(302,'/newsitem/' + req.body.date);
+});
+
+app.get('/newsitem/:newsid', function(req, res) {
+	res.render('news-display', {newsid: req.params.newsid});
+});
+
+app.get('/news', function(req, res) {
+	res.render('front-news');
 });
 
 app.get('/login.html', function( req, res ) {

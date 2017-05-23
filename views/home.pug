@@ -1,0 +1,59 @@
+extends base.pug
+block content
+	section.collapse
+		div.collapse-item.show
+		div.collapse-item
+		div.collapse-item
+		div.collapse-item
+		div.dot
+			span.checked(data-id='0')
+			span(data-id='1')
+			span(data-id='2')
+			span(data-id='3')
+	section.news
+		mixin news(header, pbody)
+			.newsitem
+				.header= header
+				.intro-img
+				.newscontent
+					p= pbody
+					button 查看详情
+		+news('NEWS HEADER', 'NEWS BODY')
+		+news('NEWS HEADER', 'NEWS BODY')
+		+news('NEWS HEADER', 'NEWS BODY')
+		+news('NEWS HEADER', 'NEWS BODY')
+	section.display
+		mixin food(psrc, ftitle)
+			figure
+				img(src=psrc alt=ftitle)
+				figcaption= ftitle
+		section.breakfast
+			h2 早餐展示
+			div.foods
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+		section.lunch
+			h2 午餐展示
+			div.foods
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+		section.dinner
+			h2 午餐展示
+			div.foods
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+				+food('imgs/f1.jpg', 'Delicious food')
+	h2.close-to-footer
+block scripts
+	script(src="js/main.js")

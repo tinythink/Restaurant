@@ -1,0 +1,9 @@
+extends base.pug
+block owncss
+	link(rel="stylesheet" href="css/news-display.css")
+block content
+	article
+		h2 新闻标题
+		div.content #{newsid}
+block scripts
+	script(src="js/news-display.js")

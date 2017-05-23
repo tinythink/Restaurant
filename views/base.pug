@@ -1,0 +1,32 @@
+doctype html
+html
+	head
+		title 创意餐厅
+		link(rel="stylesheet" href="css/style.css")
+		block owncss
+		meta(name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no")
+	body
+		header#main-header
+			div.res-tel
+				span 电话: 18895330868
+			div.header-container
+				h1 创意餐厅
+				p 享受美味，就在此地，就在此时。
+				nav
+					ul#menubar
+						li.item
+							a(href='/') 网站首页
+						li.item
+							a 公司简介
+						li.item
+							a 菜品展示
+						li.item
+							a(href='/news') 新闻资讯
+						li.item
+							a 联系方式
+
+		block content
+		footer 网站版权所有@创意餐厅
+		script(src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js")
+		block scripts
+

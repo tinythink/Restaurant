@@ -177,7 +177,7 @@ $(function() {
 
 	$('span.next-page-control').on('click', function(event) {
 		event.preventDefault();
-		pageIndex = pageIndex < Math.ceil(length / pageCount) ? pageIndex + 1 : pageIndex;
+		pageIndex = pageIndex < Math.floor(length / pageCount) ? pageIndex + 1 : pageIndex;
 		displayNewsByPageIndex(pageIndex);
 	});
 

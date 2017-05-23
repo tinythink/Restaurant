@@ -17,7 +17,7 @@ var CRUD = function() {
 		author: String,
 		title: String,
 		body: String,
-		date: Date
+		date: Number
 	});
 
 	var News = mongoose.model('News', NewsSchema);
