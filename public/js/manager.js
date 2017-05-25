@@ -34,7 +34,7 @@ $(function() {
 	function displayNewsByPageIndex(index) {
 		var total = Math.ceil(length / pageCount),
 			count = index === total ? length - index * pageCount : pageCount;
-		setNews(cache.slice(index*pageCount, index*pageCount + count));
+		setNews(cache.slice(index * pageCount, index * pageCount + count));
 	}
 
 	function setNews(result) {
@@ -53,7 +53,7 @@ $(function() {
 			var id = $(this).parents('.news-item').data('id');
 			$('.model-edit').addClass('show');
 			$.ajax({
-				url:'/getnewsbydate',
+				url: '/getnewsbydate',
 				type: 'POST',
 				dataType: 'json',
 				data: {
@@ -80,7 +80,7 @@ $(function() {
 		$('input[name="edit-news-author"]').val(news.author);
 		$('textarea[name="edit-news-body"]').val(news.body);
 	}
- 
+
 	function addNewsToDom(title, date) {
 		var titleDOM = '<span class="title">' + title + '</span>';
 		var dateDOM = '<span class="date">' + getFormatDate(date) + '</span>';
@@ -122,7 +122,7 @@ $(function() {
 		event.preventDefault();
 		var id = $(this).parents('.model-delete').data('id');
 		$.ajax({
-			url:'/deletenews',
+			url: '/deletenews',
 			type: 'POST',
 			dataType: 'json',
 			data: {
@@ -130,7 +130,7 @@ $(function() {
 			},
 			success: function(result) {
 				$('.model-delete').removeClass('show');
-				if(result.result) {
+				if (result.result) {
 					cache.forEach(function(value, index) {
 						if (value.date === id) {
 							cache.splice(index, 1);
@@ -150,29 +150,30 @@ $(function() {
 
 	$('#add').on('click', function(event) {
 
-		var news = {
-			author: $('input[name="news-author"]').val().toString(),
-			title: $('input[name="news-title"]').val().toString(),
-			body: $('textarea[name="news-body"]').val().toString(),
-			date: new Date().getTime()
-		};
-
-		cache.unshift(news);
-		if (window.sessionStorage) {
-			sessionStorage.setItem('cachenews', JSON.stringify(cache));
-		}
-
 		if (document.newsform.checkValidity()) {
+			var news = {
+				author: $('input[name="news-author"]').val().toString(),
+				title: $('input[name="news-title"]').val().toString(),
+				body: $('textarea[name="news-body"]').val().toString(),
+				date: new Date().getTime()
+			};
+
+			cache.unshift(news);
+			if (window.sessionStorage) {
+				sessionStorage.setItem('cachenews', JSON.stringify(cache));
+			}
+
 			$.ajax({
 				url: '/addnews',
 				type: 'POST',
-				dataType:'json',
+				dataType: 'json',
 				data: news,
 				success: function(result) {
-					
+
 				}
 			});
 		}
+
 	});
 
 	$('span.next-page-control').on('click', function(event) {

@@ -2,12 +2,18 @@ extends base.pug
 block owncss
 	link(rel="stylesheet" href="/css/news-display.css")
 block content
+	- var str = body
 	article.front-news
 		h2 #{title}
 		.intro
 			span.author 作者: #{author}
 			span.date 日期: #{date}
-		.content #{body}
+		.content
+			each val in str
+				if val === ''
+					br
+				else
+					p= val
 
 block scripts
 	script(src="/js/news-display.js")

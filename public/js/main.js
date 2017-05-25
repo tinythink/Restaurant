@@ -45,12 +45,28 @@ $(function() {
 		if (newsArr) {
 			newsArr.forEach(function(value, index) {
 				var $item = $('.newsitem').eq(index);
-
 				var title = value.title;
 				title = title.length >= 12 ? title.slice(0,12) + '...' : title;
+				$item.data('id', value.date);
 				$item.find('.header').text(title);
 				$item.find('.newscontent p').text(value.body);
 			});
 		}
 	}
+
+	$('button').on('click', function(e) {
+		var id = $(this).parents('.newsitem').data('id');
+		if (id !== undefined) {
+			$.ajax({
+				url: '/newsitem',
+				type: 'POST',
+				data: {
+					date: id
+				},
+				success: function(result) {
+					window.open(result);
+				}
+			});
+		}
+	});
 });

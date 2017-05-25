@@ -27,7 +27,8 @@ app.get('/newsitem/:newsid', function(req, res) {
 		var news = result[0],
 			date = new Date(news.date),
 			dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-		res.render('news-display', {title: news.title, body: news.body, date: dateString, author: news.author});
+		var newsArray = news.body.split('\n');
+		res.render('news-display', {title: news.title, body: newsArray, date: dateString, author: news.author});
 	});
 });
 
@@ -37,17 +38,6 @@ app.get('/news', function(req, res) {
 
 app.get('/login.html', function( req, res ) {
 	res.render('login');
-});
-
-app.get('/test', function(req, res) {
-	MongoHelper.saveNews({
-		author: 'hwaphon',
-		title: 'This is my first news',
-		body: 'This is first news content',
-		date: new Date().getTime()
-	});
-
-	res.send('Hello Mongoose');
 });
 
 app.post('/login', function(req, res) {
