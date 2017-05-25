@@ -1,9 +1,13 @@
 extends base.pug
 block owncss
-	link(rel="stylesheet" href="css/news-display.css")
+	link(rel="stylesheet" href="/css/news-display.css")
 block content
-	article
-		h2 新闻标题
-		div.content #{newsid}
+	article.front-news
+		h2 #{title}
+		.intro
+			span.author 作者: #{author}
+			span.date 日期: #{date}
+		.content #{body}
+
 block scripts
-	script(src="js/news-display.js")
+	script(src="/js/news-display.js")

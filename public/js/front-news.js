@@ -47,12 +47,11 @@ $(function() {
 			$.ajax({
 				url: '/newsitem',
 				type: 'POST',
-				dataType: 'json',
 				data: {
 					date: id
 				},
 				success: function(result) {
-					
+					window.open(result);
 				}
 			});
 		})

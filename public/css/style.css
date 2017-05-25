@@ -285,12 +285,12 @@ figure img {
 }
 
 footer {
-	height: 16.5rem;
+	height: 10rem;
 	background-color: #3f141b;
 	text-align: center;
 	color: #fff;
 	font-size: 1.4rem;
-	line-height: 16.5rem;
+	line-height: 10rem;
 }
 
 ::selection {

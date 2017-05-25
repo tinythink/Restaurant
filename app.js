@@ -14,12 +14,21 @@ app.get('/', function( req, res ) {
 	res.render('home');
 });
 
-app.post('/newsitem/', function(req, res) {
-	res.redirect(302,'/newsitem/' + req.body.date);
+app.post('/newsitem', function(req, res) {
+	res.send(path.join('/newsitem/' + req.body.date));
 });
 
 app.get('/newsitem/:newsid', function(req, res) {
-	res.render('news-display', {newsid: req.params.newsid});
+	MongoHelper.getNewsByDate(req.params.newsid, function(err, result) {
+		if (err) {
+			return next(err);
+		}
+
+		var news = result[0],
+			date = new Date(news.date),
+			dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+		res.render('news-display', {title: news.title, body: news.body, date: dateString, author: news.author});
+	});
 });
 
 app.get('/news', function(req, res) {
@@ -72,7 +81,7 @@ app.post('/getnewsbydate', function(req, res) {
 			return next(err);
 		}
 		res.send(result);
-	})
+	});
 });
 
 app.post('/updatenews', function(req, res) {

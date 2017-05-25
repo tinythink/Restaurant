@@ -1,0 +1,36 @@
+article.front-news {
+	padding: 20px 5%;
+	min-height: 680px;
+	height: auto;
+	background-color: #fff;
+}
+
+article.front-news h2 {
+	text-align: center;
+	letter-spacing: 4px;
+	padding-left: 4px;
+	margin-bottom: 16px;
+}
+
+article.front-news .intro {
+	text-align: center;
+	padding-bottom: 24px;
+	border-bottom: 2px solid #ccc;
+}
+
+article.front-news span {
+	font-size: 12px;
+	color: #ccc;
+	padding: 0 8px;
+}
+
+article.front-news span:first-child {
+	border-right: 1px solid #ccc;
+}
+
+article.front-news .content {
+	padding: 16px 24px;
+	line-height: 1.5;
+	color: #333;
+	text-indent: 2em;
+}
