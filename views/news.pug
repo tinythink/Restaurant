@@ -1,7 +1,7 @@
 extends layout.pug
 block content
 	h2 添加新闻
-	form(name="newsform")
+	form(name="newsform" action="" method="POST")
 		p
 			label(for="title") 新闻标题
 			input(type="text" name="news-title" id="title" required)
@@ -21,7 +21,7 @@ block content
 		span.next-page-control 下一页
 	h2
 	.model-edit
-		form(name="edit-form")
+		form(name="edit-form" action="" method="POST")
 			p
 				label 新闻标题
 				input(type="text" name="edit-news-title" required)

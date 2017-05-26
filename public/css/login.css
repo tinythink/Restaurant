@@ -50,6 +50,12 @@ button {
 	background-color: #8ec5fc;
 	padding: 8px 32px;
 	border-radius: 4px;
-	margin-top: 12px;
+	margin-top: 8px;
 	cursor: pointer;
+}
+
+span {
+	color: #E1396C;
+	margin-top: 4px;
+	font-size: 12px;
 }

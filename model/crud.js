@@ -11,6 +11,7 @@ var CRUD = function() {
 		username: String,
 		password: String
 	});
+
 	var Root = mongoose.model('Root', RootSchema);
 
 	var NewsSchema = new Schema({
@@ -74,9 +75,9 @@ var CRUD = function() {
 	};
 
 	var getRoot = function(root, callback) {
-		Root.find(root).exec(function(err, doc) {
+		Root.find(root, function(err, doc) {
 			callback(err, doc);
-		})
+		});
 	};
 
 	var getNewsByDate = function(date, callback) {

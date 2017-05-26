@@ -149,7 +149,6 @@ $(function() {
 	});
 
 	$('#add').on('click', function(event) {
-
 		if (document.newsform.checkValidity()) {
 			var news = {
 				author: $('input[name="news-author"]').val().toString(),

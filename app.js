@@ -37,23 +37,21 @@ app.get('/news', function(req, res) {
 });
 
 app.get('/login.html', function( req, res ) {
-	res.render('login');
+	res.render('login', {failed: false});
 });
 
-app.post('/login', function(req, res) {
-	MongoHelper.getRoot(req.body.username, function(err, result) {
+app.post('/manager', function(req, res) {
+	MongoHelper.getRoot({username: req.body.username, password: req.body.password }, function(err, result) {
 		if (err) {
 			return next(err);
 		}
 		console.log(result);
-		if (result) {
-			res.redirect('/manager');
+		if (result.length > 0) {
+			res.render('news');
+		} else {
+			res.render('login', {failed: true});
 		}
 	});
-});
-
-app.get('/manager', function(req, res) {
-	res.render('news');
 });
 
 app.post('/addnews', function(req, res) {
