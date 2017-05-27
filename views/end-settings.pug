@@ -1,0 +1,23 @@
+.settings-container
+	h2 基本信息
+	.basic
+		p 
+			label 餐厅名称
+			input(type="text" name="setting-title")
+		p 
+			label 联系电话
+			input(type="tel" name="setting-tel")
+		p
+			label 餐厅标语
+			input(type="text" name="setting-tips")
+		p
+			label
+			button(id="setting-save") 保存修改
+	h2 公司简介
+	.intro
+		p
+			label
+			textarea(name="intro-body" class="intro-body" rows="30" cols="100" placeholder="请输入公司简介..." required)
+		p
+			label
+			button(id="intro-save") 保存

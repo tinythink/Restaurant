@@ -7,6 +7,49 @@ var CRUD = function() {
 
 	var Schema = mongoose.Schema;
 
+	var IntroSchema = new Schema({
+		content: String
+	});
+
+	var Intro = mongoose.model('Intro', IntroSchema);
+
+	var updateIntro = function(intro, callback) {
+		Intro.update({}, intro, function(err) {
+			callback(err);
+		});
+	};
+
+	var getIntro = function(callback) {
+		Intro.find({}).exec(function(err, doc) {
+			callback(err, doc);
+		});
+	};
+
+	var SettingsSchema = new Schema({
+		title: String,
+		tel: String,
+		tips: String
+	});
+
+	var Settings = mongoose.model('Setting', SettingsSchema);
+	var addSettings = function(settings, callback) {
+		new Settings(settings).save(function(err) {
+			callback(err);
+		});
+	};
+
+	var updateSettings = function(settings, callback) {
+		Settings.update({}, settings, function(err) {
+			callback(err);
+		});
+	};
+
+	var getSettings = function(callback) {
+		Settings.find({}).exec(function(err, doc) {
+			callback(err, doc);
+		});
+	};
+
 	var RootSchema = new Schema({
 		username: String,
 		password: String
@@ -108,8 +151,13 @@ var CRUD = function() {
 		getNewsByDate: getNewsByDate,
 		updateNewsByDate: updateNewsByDate,
 		getAllNews: getAllNews,
-		deleteNewsByDate: deleteNewsByDate
-	}
+		deleteNewsByDate: deleteNewsByDate,
+		addSettings: addSettings,
+		updateSettings: updateSettings,
+		getSettings: getSettings,
+		updateIntro: updateIntro,
+		getIntro: getIntro
+	};
 }
 
 module.exports = CRUD;

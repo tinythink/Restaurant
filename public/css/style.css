@@ -8,6 +8,23 @@ html {
 	font-size: 62.5%;
 }
 
+.author {
+	text-decoration: none;
+	color: #fff;
+}
+
+.author:hover {
+	text-decoration: underline;
+}
+
+
+article {
+	padding: 20px 5%;
+	min-height: 680px;
+	height: auto;
+	background-color: #fff;
+}
+
 body {
 	font-size: 1.6rem;
 }

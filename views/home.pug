@@ -1,4 +1,12 @@
 extends base.pug
+block title
+	title #{title}
+block tel
+	span 联系电话: #{tel}
+block h1title
+	h1 #{title}
+block tips
+	p #{tips}
 block content
 	section.collapse
 		div.collapse-item.show
@@ -57,3 +65,6 @@ block content
 	h2.close-to-footer
 block scripts
 	script(src="js/main.js")
+block footer-content
+	p 网站版权所有@#{title} | 
+		a(href="http://hwaphon.site" class="author") 开发者-高华峰

@@ -8,11 +8,30 @@
 ::selection {
 	background-color: #E8F1F5;
 }
+html {
+	height: 100%;
+}
 
 body {
 	color: #333;
 	line-height: 1.5;
 	background-color: #eee;
+	display: flex;
+	flex-flow: column nowrap;
+	height: 100%;
+}
+
+header {
+	flex: 0 0 auto;
+}
+
+.container {
+	flex: 1 0 auto;
+	background-color: #fff;
+}
+
+footer {
+	flex: 0 0 auto;
 }
 
 ul.nav-list {
@@ -37,7 +56,7 @@ ul.nav-list a {
 	color: #fff;
 }
 
-.container {
+.container,footer  {
 	width: 80%;
 	margin: 0 auto;
 }
@@ -52,7 +71,7 @@ h2 {
 /* base style end */
 
 /* news style start */
-form {
+.form-like {
 	background-color: #fff;
 	padding: 8px 18px;
 }
@@ -188,7 +207,7 @@ span.pre-page-control {
 	visibility: visible;
 }
 
-.model-edit form, .model-delete .confirm-delete {
+.model-edit .form-like, .model-delete .confirm-delete {
 	padding: 24px 32px;
 	width: 70%;
 	position: absolute;
@@ -207,16 +226,59 @@ span.pre-page-control {
 	margin-right: 12px;
 }
 
-.model-edit form input, .model-edit form textarea {
+.model-edit .form-like input, .model-edit .form-like textarea {
 	width: 100%;
 }
 
-.model-edit form input {
+.model-edit .form-like input {
 	height: 36px;
 }
 
-.model-edit form button {
+.model-edit .form-like button {
 	margin-right: 24px;
 }
 
 /* news style end */
+
+footer {
+	height: 4rem;
+	background-color: #3f141b;
+	text-align: center;
+	color: #fff;
+	font-size: 1.2rem;
+	line-height: 4rem;
+}
+
+.settings-container .basic {
+	padding: 8px 18px;
+}
+
+.settings-container p {
+	margin-bottom: 16px;
+}
+
+.settings-container input {
+	width: 360px;
+}
+
+.settings-container span {
+	margin-left: 12px;
+	font-size: 14px;
+	color: #5BE7C4;
+}
+
+.author {
+	text-decoration: none;
+	color: #fff;
+}
+
+.author:hover {
+	text-decoration: underline;
+}
+
+.intro {
+	padding: 8px 18px;
+}
+
+
+

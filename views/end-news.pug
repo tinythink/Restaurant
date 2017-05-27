@@ -1,0 +1,39 @@
+block content
+	h2 添加新闻
+	.form-like
+		p
+			label(for="title") 新闻标题
+			input(type="text" name="news-title" id="title" required)
+		p
+			label(for="author") 作者
+			input(type="text" name="news-author")
+		p
+			label
+			textarea(name="news-body" id="nbody" rows="20" cols="80" placeholder="请输入新闻内容..." required)
+		p
+			label
+			button(id="add") 添加新闻
+	h2 新闻列表
+	.news-list
+	.page-control
+		span.pre-page-control 上一页
+		span.next-page-control 下一页
+	.model-edit
+		.form-like
+			p
+				label 新闻标题
+				input(type="text" name="edit-news-title" required)
+			p
+				label 作者
+				input(type="text" name="edit-news-author")
+			p
+				label
+				textarea(name="edit-news-body" rows="20" cols="80" placeholder="请输入新闻内容..." required)
+			p
+				button(id="edit-submit") 修改新闻
+				button(class="edit-cancel") 取消
+	.model-delete
+		.confirm-delete
+			p 确认删除这条新闻吗？
+			button.delete-ok 确认
+			button.delete-cancel 取消

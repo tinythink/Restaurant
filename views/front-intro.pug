@@ -10,12 +10,6 @@ block tips
 block footer-content
 	p 网站版权所有@#{title} | 
 		a(href="http://hwaphon.site" class="author") 开发者-高华峰
-block owncss
-	link(rel="stylesheet" href="css/news.css")
 block content
-	.news-list
-	div.page-control
-		span.pre 上一页
-		span.next 下一页
-block scripts
-	script(src="js/front-news.js")
+	- var content = content
+	article #{content}

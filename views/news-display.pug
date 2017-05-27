@@ -1,10 +1,18 @@
 extends base.pug
+block title
+	title #{title}
 block owncss
 	link(rel="stylesheet" href="/css/news-display.css")
+block tel
+	span 联系电话: #{tel}
+block h1title
+	h1 #{title}
+block tips
+	p #{tips}
 block content
 	- var str = body
 	article.front-news
-		h2 #{title}
+		h2 #{atitle}
 		.intro
 			span.author 作者: #{author}
 			span.date 日期: #{date}
@@ -17,3 +25,6 @@ block content
 
 block scripts
 	script(src="/js/news-display.js")
+block footer-content
+	p 网站版权所有@#{title} | 
+		a(href="http://hwaphon.site" class="author") 开发者-高华峰
