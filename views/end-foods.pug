@@ -1,1 +1,26 @@
-p This is food page.
+.food-container
+	h2 添加食物
+	.form-like
+		p
+			label 食物名称
+			input(type="text" name="food-name")
+		p
+			label 食物描述
+			input(type="text" name="food-des")
+		p
+			label 所属类别
+			select(name="food-cat")
+				option(value="breakfast") 早餐
+				option(value="lunch") 午餐
+				option(value="dinner") 晚餐
+		p
+			label 图片链接
+			input(type="text" name="food-pic")
+		p 
+			label
+			button(id="add-food") 添加
+	h2 食物
+	.list.food-list
+	.page-control.food-control
+		span.pre-page-control 上一页
+		span.next-page-control 下一页

@@ -25,6 +25,11 @@ article {
 	background-color: #fff;
 }
 
+article.intro {
+	padding: 20px 10%;
+	line-height: 1.8;
+}
+
 body {
 	font-size: 1.6rem;
 }

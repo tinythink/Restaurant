@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var MongoHelper = require('./model/crud.js')();
+var fs = require('fs');
 
 var app = express();
 
@@ -191,6 +192,24 @@ app.post('/deletenews', function(req, res) {
 		} else {
 			res.send({result: true});
 		}
+	})
+});
+
+app.post('/savefood', function(req, res) {
+	MongoHelper.saveFood(req.body, function(error) {
+		if (error) {
+			return next(error);
+		}
+		res.send(true);
+	});
+});
+
+app.get('/getfood', function(req, res) {
+	MongoHelper.getFood(function(err, doc) {
+		if (err) {
+			return next(err);
+		}
+		res.send(doc);
 	})
 });
 

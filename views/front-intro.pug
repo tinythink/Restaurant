@@ -11,5 +11,10 @@ block footer-content
 	p 网站版权所有@#{title} | 
 		a(href="http://hwaphon.site" class="author") 开发者-高华峰
 block content
-	- var content = content
-	article #{content}
+	- var str = content
+	article.intro
+		each val in str
+			if val === ''
+				br
+			else
+				p= val

@@ -67,35 +67,23 @@ var CRUD = function() {
 	var News = mongoose.model('News', NewsSchema);
 
 	var FoodSchema = new Schema({
-		name: String,
-		pic: String
+		fn: String,
+		fd: String,
+		cat: String,
+		fp: String
 	});
 
-	var Breakfast = mongoose.model('Breakfast', FoodSchema);
-	var Lunch = mongoose.model('Lunch', FoodSchema);
-	var Dinner = mongoose.model('Dinner', FoodSchema);
+	var Food = mongoose.model('Food', FoodSchema);
 
-	var saveBreakfast = function(food) {
-		new Breakfast(food).save(function(error) {
-			if(error){
-				console.log(error);
-			}
+	var saveFood = function(food, callback) {
+		new Food(food).save(function(error) {
+			callback(error);
 		});
 	};
 
-	var saveLunch = function(food) {
-		new Lunch(food).save(function(error) {
-			if(error){
-				console.log(error);
-			}
-		});
-	};
-
-	var saveDinner = function(food) {
-		new Dinner(food).save(function(error) {
-			if(error){
-				console.log(error);
-			}
+	var getFood = function(callback) {
+		Food.find({}).exec(function(err, doc) {
+			callback(err, doc);
 		});
 	};
 
@@ -142,9 +130,8 @@ var CRUD = function() {
 	};
 
 	return {
-		saveBreakfast: saveBreakfast,
-		saveLunch: saveLunch,
-		saveDinner: saveDinner,
+		saveFood: saveFood,
+		getFood: getFood,
 		saveNews: saveNews,
 		getNews: getNews,
 		getRoot: getRoot,

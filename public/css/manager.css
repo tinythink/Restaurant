@@ -109,13 +109,13 @@ button:hover {
 	background-color: #28050b;
 }
 
-.news-list {
+.list {
 	background-color: #fff;
 	height: 490px;
 	overflow: hidden;
 }
 
-.news-item {
+.list-item {
 	padding: 8px 18px;
 	line-height: 32px;
 	border-bottom: 1px solid #ccc;
@@ -162,12 +162,12 @@ span.delete {
 	background-repeat: no-repeat;
 }
 
-.news-item:hover {
+.list-item:hover {
 	background-color: rgba(0,0,0,.15);
 	transition: background-color .2s;
 }
 
-.news-item:hover > div.control {
+.list-item:hover > div.control {
 	visibility: visible;
 	transition: visibility .3s;
 }

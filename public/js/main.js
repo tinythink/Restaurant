@@ -41,6 +41,55 @@ $(function() {
 		}
 	});
 
+	/* AJAX GET FOODS */
+	$.ajax({
+		url: '/getfood',
+		type: 'GET',
+		dataType: 'json',
+		success: function(result) {
+			controlFoods(result);
+		}
+	});
+
+	function controlFoods(result) {
+		var foods = result.reverse();
+		var breakfast = foods.filter(function(value, index) {
+			if (value.cat === 'breakfast') {
+				return value;
+			}
+		});
+
+		var lunch = foods.filter(function(value, index) {
+			if (value.cat === 'lunch') {
+				return value;
+			}
+		});
+
+		var dinner = foods.filter(function(value, index) {
+			if (value.cat === 'dinner') {
+				return value;
+			}
+		});
+
+		setFoods(breakfast.slice(0, 6), '.breakfast');
+		setFoods(lunch.slice(0, 6), '.lunch');
+		setFoods(dinner.slice(0, 6), '.dinner');
+	}
+
+	function setFoods(foodsArr, cat) {
+		var length = foodsArr.length;
+		for(var i = 0; i < length; i++) {
+			var $foods = $(cat + ' .foods figure').eq(i);
+			var img = new Image();
+			img.onload = (function(j) {	
+				$foods.find('img').attr('alt', foodsArr[j].fd);
+				$foods.find('img').attr('src', foodsArr[j].fp);
+				$foods.find('figcaption').text(foodsArr[j].fn);
+			})(i);
+			img.src= foodsArr[i].fp;
+		}
+	}
+
 	function setNews(newsArr) {
 		if (newsArr) {
 			newsArr.forEach(function(value, index) {

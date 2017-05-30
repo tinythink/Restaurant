@@ -81,7 +81,7 @@ $(function() {
 			var titleDOM = '<span class="title">' + title + '</span>';
 			var dateDOM = '<span class="date">' + getFormatDate(date) + '</span>';
 			var divDOM = '<div class="control"><span class="edit"></span><span class="delete"></span></div>';
-			var itemDOM = $('<div></div').addClass('news-item').data('id', date).append(titleDOM, dateDOM, divDOM);
+			var itemDOM = $('<div></div').addClass('list-item news-item').data('id', date).append(titleDOM, dateDOM, divDOM);
 			$('.news-list').append(itemDOM);
 		}
 
@@ -258,6 +258,34 @@ $(function() {
 
 	};
 
+	var initFoodPage = function() {
+		$('#add-food').on('click', function(e) {
+			var formData = new FormData();
+			$.ajax({
+				url: '/savefood',
+				type: 'POST',
+				data: getFormValue(),
+				success: function() {
+					console.log('upload success');
+				}
+			});
+		});
+
+		function getFormValue() {
+			var fn = $('input[name="food-name"]').val();
+			var fd = $('input[name="food-des"]').val();
+			var fc = $('select[name="food-cat"]').find('option:selected').val();
+			var fp = $('input[name="food-pic"]').val();
+
+			return {
+				fn: fn,
+				fd: fd,
+				cat: fc,
+				fp: fp
+			};
+		}
+	}
+
 	initNewsPage();
 
 	$('a.end-control').on('click', function(e) {
@@ -276,6 +304,8 @@ $(function() {
 					initNewsPage();
 				} else if(name === 'end-settings'){
 					initSettingsPage();
+				} else if(name="end-foods") {
+					initFoodPage();
 				}
 			}
 		});
