@@ -70,7 +70,8 @@ var CRUD = function() {
 		fn: String,
 		fd: String,
 		cat: String,
-		fp: String
+		fp: String,
+		date: Number
 	});
 
 	var Food = mongoose.model('Food', FoodSchema);
@@ -84,6 +85,24 @@ var CRUD = function() {
 	var getFood = function(callback) {
 		Food.find({}).exec(function(err, doc) {
 			callback(err, doc);
+		});
+	};
+
+	var getFoodByDate = function(date, callback) {
+		Food.find({date: date}).exec(function(err, doc) {
+			callback(err, doc);
+		});
+	};
+
+	var updateFood = function(food, callback) {
+		Food.update({date: food.date}, food, function(err) {
+			callback(err);
+		});
+	};
+
+	var deleteFood = function(date, callback) {
+		Food.remove({date: date}, function(err) {
+			callback(err);
 		});
 	};
 
@@ -132,6 +151,9 @@ var CRUD = function() {
 	return {
 		saveFood: saveFood,
 		getFood: getFood,
+		getFoodByDate: getFoodByDate,
+		updateFood: updateFood,
+		deleteFood: deleteFood,
 		saveNews: saveNews,
 		getNews: getNews,
 		getRoot: getRoot,

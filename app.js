@@ -213,5 +213,31 @@ app.get('/getfood', function(req, res) {
 	})
 });
 
+app.post('/gfbd', function(req, res) {
+	MongoHelper.getFoodByDate(req.body.date, function(err, doc) {
+		if (err) {
+			return next(err);
+		}
+		res.send(doc);
+	});
+});
+
+app.post('/ufbd', function(req, res) {
+	MongoHelper.updateFood(req.body, function(err) {
+		if (err) {
+			return next(err);
+		}
+		res.send(true);
+	});
+});
+
+app.post('/dfbd', function(req, res) {
+	MongoHelper.deleteFood(req.body.date, function(err) {
+		if (err) {
+			return next(err);
+		}
+		res.send(true);
+	})
+});
 
 app.listen(process.env.PORT || 5000);

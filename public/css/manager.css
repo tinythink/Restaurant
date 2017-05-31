@@ -132,7 +132,7 @@ span.title {
 	text-overflow: ellipsis;
 }
 
-span.date, div.control {
+span.date, div.control,span.cat {
 	width: 128px;
 	text-align: center;
 }

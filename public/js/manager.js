@@ -1,6 +1,6 @@
 $(function() {
 	var initNewsPage = function() {
-	// 判断是否支持 sessionStorage, 如果支持就提取本地缓存的 news，如果尚未缓存就先赋值为一个数组
+		// 判断是否支持 sessionStorage, 如果支持就提取本地缓存的 news，如果尚未缓存就先赋值为一个数组
 		var cache = window.sessionStorage && (JSON.parse(sessionStorage.getItem('cachenews')) || []),
 			pageIndex = 0,
 			pageCount = 10,
@@ -108,6 +108,7 @@ $(function() {
 				},
 				success: function() {
 					$('.model-edit').removeClass('show');
+					initNewsPage();
 				}
 			});
 		});
@@ -245,6 +246,7 @@ $(function() {
 					spanToggle();
 				}
 			});
+
 			function spanToggle() {
 				$('.basic span').remove();
 				var span = $('<span></span>').text('保存成功');
@@ -259,55 +261,197 @@ $(function() {
 	};
 
 	var initFoodPage = function() {
-		$('#add-food').on('click', function(e) {
-			var formData = new FormData();
+
+		var foods,
+			pageIndex = 0,
+			pageCount = 10;
+
+		$('#add-food').on('click',function(e) {
 			$.ajax({
 				url: '/savefood',
 				type: 'POST',
-				data: getFormValue(),
-				success: function() {
-					console.log('upload success');
-				}
+				data: getFormValue()
+			}).done(function() {
+				window.location.reload();
 			});
 		});
 
-		function getFormValue() {
-			var fn = $('input[name="food-name"]').val();
-			var fd = $('input[name="food-des"]').val();
-			var fc = $('select[name="food-cat"]').find('option:selected').val();
-			var fp = $('input[name="food-pic"]').val();
 
-			return {
-				fn: fn,
-				fd: fd,
-				cat: fc,
-				fp: fp
-			};
-		}
+	function emptyForm() {
+		$('input[name="food-name"]').val('');
+		$('input[name="food-des"]').val('');
+		$('input[name="food-pic"]').val('');
 	}
 
-	initNewsPage();
+	function getFormValue() {
+		var fn = $('input[name="food-name"]').val();
+		var fd = $('input[name="food-des"]').val();
+		var fc = $('select[name="food-cat"]').find('option:selected').val();
+		var fp = $('input[name="food-pic"]').val();
 
-	$('a.end-control').on('click', function(e) {
-		e.preventDefault();
-		var name = $(this).attr('name');
+		return {
+			fn: fn,
+			fd: fd,
+			cat: fc,
+			fp: fp,
+			date: new Date().getTime()
+		};
+	}
+
+	function load() {
 		$.ajax({
-			url: '/manager-control',
-			type: 'POST',
-			data: {
-				name: name
-			},
+			url: '/getfood',
+			type: 'GET',
 			success: function(result) {
-				$('.container').html(result);
+				foods = result.reverse();
+				displayFoodsByPageIndex(pageIndex);
+			}
+		});
+	}
+	load();
 
-				if (name === 'end-news') {
-					initNewsPage();
-				} else if(name === 'end-settings'){
-					initSettingsPage();
-				} else if(name="end-foods") {
-					initFoodPage();
+	function addFoodToDOM(food) {
+		var titleDOM = '<span class="title">' + food.fn + '</span>';
+		var catDOM = '<span class=".cat">' + food.cat + '</span>';
+		var divDOM = '<div class="control"><span class="edit"></span><span class="delete"></span></div>';
+		var itemDOM = $('<div></div').addClass('list-item foods-item').data('id', food.date).append(titleDOM, catDOM, divDOM);
+		$('.food-list').append(itemDOM);
+	}
+
+	function addClickHandler() {
+		$('.edit').on('click', function(e) {
+			var id = $(this).parents('.foods-item').data('id');
+			$('.model-edit').addClass('show');
+			$('.model-edit').data('id', id);
+			$.ajax({
+				url: '/gfbd',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					date: id
+				},
+				success: function(result) {
+					addFoodToEditDOM(result[0]);
+					displayFoodsByPageIndex(pageIndex);
 				}
+			});
+		});
+	}
+
+
+	function addDeleteHandler() {
+		$('span.delete').on('click', function(event) {
+			var id = $(this).parents('.foods-item').data('id');
+			$('.model-delete').addClass('show').data('id', id);
+		});
+	}
+
+	$('.edit-cancel').on('click', function(event) {
+		event.preventDefault();
+		$('.model-edit').removeClass('show');
+	});
+
+	$('#edit-submit').on('click', function(event) {
+		event.preventDefault();
+		var food = {
+			fn: $('input[name="edit-food-name"]').val(),
+			fd: $('textarea[name="edit-food-des"]').val(),
+			cat: $('select[name="edit-food-cat"]').find('option:selected').val(),
+			fp: $('input[name="edit-food-pic"]').val(),
+			date: $('.model-edit').data('id')
+		};
+		$.ajax({
+			url: '/ufbd',
+			type: 'POST',
+			data: food,
+			success: function() {
+				$('.model-edit').removeClass('show');
+				$('.food-list').empty();
+				initFoodPage();
 			}
 		});
 	});
+
+	$('.delete-ok').on('click', function(event) {
+		event.preventDefault();
+		var id = $(this).parents('.model-delete').data('id');
+		$.ajax({
+			url: '/dfbd',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				date: id
+			},
+			success: function(result) {
+				$('.model-delete').removeClass('show');
+				$('.food-list').empty();
+				initFoodPage();
+			}
+		});
+	});
+
+	$('.delete-cancel').on('click', function(event) {
+		event.preventDefault();
+		$('.model-delete').removeClass('show');
+	});
+
+	function addFoodToEditDOM(food) {
+		$('input[name="edit-food-name"]').val(food.fn);
+		$('textarea[name="edit-food-des"]').val(food.fd);
+		$('input[name="edit-food-pic"]').val(food.fp);
+		$('select[name="edit-food-cat"]').val(food.cat);
+	}
+
+	$('span.next-page-control').on('click', function(event) {
+		event.preventDefault();
+		pageIndex = pageIndex < Math.floor(foods.length / pageCount) ? pageIndex + 1 : pageIndex;
+		displayFoodsByPageIndex(pageIndex);
+	});
+
+	$('span.pre-page-control').on('click', function(event) {
+		event.preventDefault();
+		pageIndex = pageIndex > 0 ? pageIndex - 1 : pageIndex;
+		displayFoodsByPageIndex(pageIndex);
+	});
+
+	function displayFoodsByPageIndex(index) {
+		var total = Math.ceil(foods.length / pageCount),
+			count = index === total ? foods.length - index * pageCount : pageCount;
+		setFoods(foods.slice(index * pageCount, index * pageCount + count));
+		addClickHandler();
+		addDeleteHandler();
+	}
+
+	function setFoods(foodsArr) {
+		$('.food-list').empty();
+		foodsArr.forEach(function(value, index) {
+			addFoodToDOM(value);
+		});
+	}
+}
+
+initNewsPage();
+
+$('a.end-control').on('click', function(e) {
+	e.preventDefault();
+	var name = $(this).attr('name');
+	$.ajax({
+		url: '/manager-control',
+		type: 'POST',
+		data: {
+			name: name
+		},
+		success: function(result) {
+			$('.container').html(result);
+
+			if (name === 'end-news') {
+				initNewsPage();
+			} else if (name === 'end-settings') {
+				initSettingsPage();
+			} else if (name = "end-foods") {
+				initFoodPage();
+			}
+		}
+	});
+});
 });
