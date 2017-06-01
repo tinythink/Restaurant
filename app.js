@@ -205,7 +205,7 @@ app.post('/getnewsbydate', function(req, res) {
 app.post('/updatenews', function(req, res) {
 	MongoHelper.updateNewsByDate(req.body, function(err) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(true);
 	});
