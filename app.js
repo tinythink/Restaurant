@@ -169,7 +169,7 @@ app.post('/manager-control', function(req, res) {
 app.post('/addnews', function(req, res) {
 	MongoHelper.saveNews(req.body, function(error) {
 		if (error) {
-			return next(error);
+			res.send(error);
 		}
 		res.send(true);
 	});
