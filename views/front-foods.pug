@@ -1,0 +1,43 @@
+extends base.pug
+block title
+	title #{title}
+block tel
+	span 联系电话: #{tel}
+block h1title
+	h1 #{title}
+block tips
+	p #{tips}
+block footer-content
+	p 网站版权所有@#{title} | 
+		a(href="http://hwaphon.site" class="author") 开发者-高华峰
+block owncss
+	link(rel="stylesheet" href="css/foods.css")
+block content
+	section.breakfast
+		h2 早餐展示
+		.foods
+			each food in breakfast
+				.food-item
+					.header= food.fn
+					img.food(src=food.fp)
+					.foods-content
+						p= food.fd
+	section.lunch
+		h2 午餐展示
+		.foods
+			each food in lunch
+				.food-item
+					.header= food.fn
+					img.food(src=food.fp)
+					.foods-content
+						p= food.fd
+	section.dinner
+		h2 晚餐展示
+		.foods
+			each food in dinner
+				.food-item
+					.header= food.fn
+					img.food(src=food.fp)
+					.foods-content
+						p= food.fd
+	h2

@@ -8,15 +8,52 @@ var app = express();
 
 app.set('view engine', 'pug');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function( req, res ) {
+app.get('/', function(req, res) {
 	MongoHelper.getSettings(function(err, doc) {
 		if (err) {
 			return next(err);
 		}
 		res.render('home', doc[0]);
+	});
+});
+
+app.get('/food', function(req, res) {
+	MongoHelper.getSettings(function(err, doc) {
+		if (err) {
+			return next(err);
+		}
+
+		MongoHelper.getFood(function(err, result) {
+			if (err) {
+				return next(err);
+			}
+
+			var breakfast = result.filter(function(value) {
+				return value.cat === 'breakfast';
+			});
+
+			var lunch = result.filter(function(value) {
+				return value.cat === 'lunch';
+			});
+
+			var dinner = result.filter(function(value) {
+				return value.cat === 'dinner';
+			});
+
+			res.render('front-foods', {
+				title: doc[0].title,
+				tel: doc[0].tel,
+				tips: doc[0].tips,
+				breakfast: breakfast,
+				lunch: lunch,
+				dinner: dinner
+			});
+		});
 	});
 });
 
@@ -79,16 +116,16 @@ app.get('/newsitem/:newsid', function(req, res) {
 				return next(err);
 			}
 			res.render('news-display', {
-				atitle: news.title, 
-				body: newsArray, 
-				date: dateString, 
+				atitle: news.title,
+				body: newsArray,
+				date: dateString,
 				author: news.author,
 				title: doc[0].title,
 				tel: doc[0].tel,
 				tips: doc[0].tips
 			});
 		});
-		
+
 	});
 });
 
@@ -101,19 +138,26 @@ app.get('/news', function(req, res) {
 	});
 });
 
-app.get('/login.html', function( req, res ) {
-	res.render('login', {failed: false});
+app.get('/login.html', function(req, res) {
+	res.render('login', {
+		failed: false
+	});
 });
 
 app.post('/manager', function(req, res) {
-	MongoHelper.getRoot({username: req.body.username, password: req.body.password }, function(err, result) {
+	MongoHelper.getRoot({
+		username: req.body.username,
+		password: req.body.password
+	}, function(err, result) {
 		if (err) {
 			return next(err);
 		}
 		if (result.length > 0) {
 			res.render('end-home');
 		} else {
-			res.render('login', {failed: true});
+			res.render('login', {
+				failed: true
+			});
 		}
 	});
 });
@@ -190,7 +234,9 @@ app.post('/deletenews', function(req, res) {
 		if (err) {
 			return next(err);
 		} else {
-			res.send({result: true});
+			res.send({
+				result: true
+			});
 		}
 	})
 });

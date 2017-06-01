@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var CRUD = function() {
-	var url = 'mongodb://localhost:27017/restaurant';
+	var url = 'mongodb://hwaphon:hwaphon521@ds157971.mlab.com:57971/rest';
 	mongoose.Promise = global.Promise;
 	mongoose.connect(url);
 
