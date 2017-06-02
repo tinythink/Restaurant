@@ -37,7 +37,7 @@ $(function() {
 			$('.news-list').empty();
 			if (result) {
 				result.forEach(function(value, index) {
-					addNewsToDom(value.title, value.date);
+					addNewsToDom(value.title, parseInt(value.date));
 					setClickHanlderForEdit();
 					setClickHanlderForDelete();
 				});
