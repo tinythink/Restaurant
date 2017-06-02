@@ -64,8 +64,7 @@ var CRUD = function() {
 		var options = {
 			database: 'rest',
 			collectionName: 'foods',
-			query: '{ "date": "' + date + '" }',
-			findOne: true
+			query: '{ "date": ' + date + ' }',
 		};
 
 		mLab.listDocuments(options, callback);
@@ -75,7 +74,7 @@ var CRUD = function() {
 		var options = {
 			database: 'rest',
 			collectionName: 'foods',
-			query: '{ "date": "' + food.date + '" }',
+			query: '{ "date": ' + food.date + ' }',
 			data: food
 		};
 

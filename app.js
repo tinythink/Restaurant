@@ -264,6 +264,7 @@ app.post('/gfbd', function(req, res) {
 		if (err) {
 			res.send(err);
 		}
+		console.log(doc);
 		res.send(doc);
 	});
 });
