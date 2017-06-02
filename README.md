@@ -1,20 +1,15 @@
-下载到本地查看效果，步骤如下:
+本项目已经基本完结，你可以通过在线访问的方式查看该项目，网址为 https://safe-atoll-14000.herokuapp.com，当然这只是前台界面，你可以在 /login.html 中登录到后台界面，默认设置的账号为 root，密码也是 root。
 
-	git clone https://github.com/tinythink/Restaurant.git
-	cd Restaurant && cnpm install
-	node app.js
+你也可以将项目克隆到本地，通过以下命令即可
 	
-然后再本地浏览器中输入 localhost:5000 即可查看网页。
+	git clone https://github.com/tinythink/Restaurant.git
+	cd Restaurant && npm install
+	node app.js
 
-后台管理登录界面: localhost:5000/login.html,管理员账户名:restroot, 密码: restroot
+然后即可输入 `http://localhost:5000` 访问该网页，登录后台操作和在线访问一致。
 
-由于后台信息全部存储在 `MongoDB` 中，所以在后台添加信息的时候需要运行 `MongoDB` 服务。
-
-接下来的任务有：
-
-1. 支持上传食物图片和新闻图片，并且保存在 `MongoDB` 中
-2. 书写后台管理界面以及样式
-3. 用户各页面以及样式
+由于本项目采用的是在线的数据库 `MongoLab`，所以不需要你再运行本地 `MongoDB` 数据库。
+tips : 可通过 [mongolab-data-api](https://www.npmjs.com/package/mongolab-data-api) 操作 `MongoLab` 数据库.
 
 ### 更新记录
 
