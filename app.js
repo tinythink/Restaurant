@@ -107,7 +107,7 @@ app.get('/newsitem/:newsid', function(req, res) {
 			res.send(err);
 		}
 		var news = result[0],
-			date = new Date(news.date),
+			date = new Date(parseInt(news.date)),
 			dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 		var newsArray = news.body.split('\n');
 
