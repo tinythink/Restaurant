@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res) {
 	MongoHelper.getSettings(function(err, doc) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.render('home', doc[0]);
 	});
@@ -25,12 +25,12 @@ app.get('/', function(req, res) {
 app.get('/food', function(req, res) {
 	MongoHelper.getSettings(function(err, doc) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 
 		MongoHelper.getFood(function(err, result) {
 			if (err) {
-				return next(err);
+				res.send(err);
 			}
 
 			var breakfast = result.filter(function(value) {
@@ -60,12 +60,12 @@ app.get('/food', function(req, res) {
 app.get('/intro', function(req, res) {
 	MongoHelper.getSettings(function(err, doc) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 
 		MongoHelper.getIntro(function(err, result) {
 			if (err) {
-				return next(err);
+				res.send(err);
 			}
 
 			res.render('front-intro', {
@@ -81,7 +81,7 @@ app.get('/intro', function(req, res) {
 app.get('/getintro', function(req, res) {
 	MongoHelper.getIntro(function(err, doc) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(doc);
 	});
@@ -90,7 +90,7 @@ app.get('/getintro', function(req, res) {
 app.post('/updateintro', function(req, res) {
 	MongoHelper.updateIntro(req.body, function(err) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(true);
 	});
@@ -101,11 +101,11 @@ app.post('/newsitem', function(req, res) {
 });
 
 app.get('/newsitem/:newsid', function(req, res) {
+
 	MongoHelper.getNewsByDate(req.params.newsid, function(err, result) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
-
 		var news = result[0],
 			date = new Date(news.date),
 			dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
@@ -132,7 +132,7 @@ app.get('/newsitem/:newsid', function(req, res) {
 app.get('/news', function(req, res) {
 	MongoHelper.getSettings(function(err, doc) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.render('front-news', doc[0]);
 	});
@@ -150,7 +150,7 @@ app.post('/manager', function(req, res) {
 		password: req.body.password
 	}, function(err, result) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		if (result.length > 0) {
 			res.render('end-home');
@@ -178,7 +178,7 @@ app.post('/addnews', function(req, res) {
 app.post('/updatesettings', function(req, res) {
 	MongoHelper.updateSettings(req.body, function(err) {
 		if (err) {
-			return next(err);
+			res.send(error);
 		}
 		res.send(true);
 	})
@@ -187,7 +187,7 @@ app.post('/updatesettings', function(req, res) {
 app.get('/getsettings', function(req, res) {
 	MongoHelper.getSettings(function(err, doc) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(doc[0]);
 	});
@@ -196,7 +196,7 @@ app.get('/getsettings', function(req, res) {
 app.post('/getnewsbydate', function(req, res) {
 	MongoHelper.getNewsByDate(req.body.date, function(err, result) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(result);
 	});
@@ -214,7 +214,7 @@ app.post('/updatenews', function(req, res) {
 app.get('/getnews', function(req, res) {
 	MongoHelper.getNews(function(err, result) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(result);
 	});
@@ -223,7 +223,7 @@ app.get('/getnews', function(req, res) {
 app.get('/getallnews', function(req, res) {
 	MongoHelper.getAllNews(function(err, result) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(result);
 	});
@@ -232,7 +232,7 @@ app.get('/getallnews', function(req, res) {
 app.post('/deletenews', function(req, res) {
 	MongoHelper.deleteNewsByDate(req.body.date, function(err) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		} else {
 			res.send({
 				result: true
@@ -244,7 +244,7 @@ app.post('/deletenews', function(req, res) {
 app.post('/savefood', function(req, res) {
 	MongoHelper.saveFood(req.body, function(error) {
 		if (error) {
-			return next(error);
+			res.send(error);
 		}
 		res.send(true);
 	});
@@ -253,7 +253,7 @@ app.post('/savefood', function(req, res) {
 app.get('/getfood', function(req, res) {
 	MongoHelper.getFood(function(err, doc) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(doc);
 	})
@@ -262,7 +262,7 @@ app.get('/getfood', function(req, res) {
 app.post('/gfbd', function(req, res) {
 	MongoHelper.getFoodByDate(req.body.date, function(err, doc) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(doc);
 	});
@@ -271,7 +271,7 @@ app.post('/gfbd', function(req, res) {
 app.post('/ufbd', function(req, res) {
 	MongoHelper.updateFood(req.body, function(err) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(true);
 	});
@@ -280,7 +280,7 @@ app.post('/ufbd', function(req, res) {
 app.post('/dfbd', function(req, res) {
 	MongoHelper.deleteFood(req.body.date, function(err) {
 		if (err) {
-			return next(err);
+			res.send(err);
 		}
 		res.send(true);
 	})

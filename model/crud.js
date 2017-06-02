@@ -1,151 +1,170 @@
-var mongoose = require('mongoose');
+var mLab = require('mongolab-data-api')('z3fKC_Ykx5H3ljE28vTaNY0QSzYba6Sb');
 
 var CRUD = function() {
-	var url = 'mongodb://hwaphon:hwaphon521@ds157971.mlab.com:57971/rest';
-	mongoose.Promise = global.Promise;
-	mongoose.connect(url);
-
-	var Schema = mongoose.Schema;
-
-	var IntroSchema = new Schema({
-		content: String
-	});
-
-	var Intro = mongoose.model('Intro', IntroSchema);
-
 	var updateIntro = function(intro, callback) {
-		Intro.update({}, intro, function(err) {
-			callback(err);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'intros',
+			data: intro,
+			allDocuments: true
+		};
+
+		mLab.updateDocuments(options, callback);
 	};
 
 	var getIntro = function(callback) {
-		Intro.find({}).exec(function(err, doc) {
-			callback(err, doc);
-		});
-	};
+		var options = {
+			database: 'rest',
+			collectionName: 'intros',
+		};
 
-	var SettingsSchema = new Schema({
-		title: String,
-		tel: String,
-		tips: String
-	});
-
-	var Settings = mongoose.model('Setting', SettingsSchema);
-	var addSettings = function(settings, callback) {
-		new Settings(settings).save(function(err) {
-			callback(err);
-		});
+		mLab.listDocuments(options, callback);
 	};
 
 	var updateSettings = function(settings, callback) {
-		Settings.update({}, settings, function(err) {
-			callback(err);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'settings',
+			data: settings,
+			allDocuments: true
+		};
+
+		mLab.updateDocuments(options, callback);
 	};
 
 	var getSettings = function(callback) {
-		Settings.find({}).exec(function(err, doc) {
-			callback(err, doc);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'settings',
+		};
+
+		mLab.listDocuments(options, callback);
 	};
 
-	var RootSchema = new Schema({
-		username: String,
-		password: String
-	});
-
-	var Root = mongoose.model('Root', RootSchema);
-
-	var NewsSchema = new Schema({
-		author: String,
-		title: String,
-		body: String,
-		date: Number
-	});
-
-	var News = mongoose.model('News', NewsSchema);
-
-	var FoodSchema = new Schema({
-		fn: String,
-		fd: String,
-		cat: String,
-		fp: String,
-		date: Number
-	});
-
-	var Food = mongoose.model('Food', FoodSchema);
-
 	var saveFood = function(food, callback) {
-		new Food(food).save(function(error) {
-			callback(error);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'foods',
+			documents: food
+		};
+
+		mLab.insertDocuments(options, callback);
 	};
 
 	var getFood = function(callback) {
-		Food.find({}).exec(function(err, doc) {
-			callback(err, doc);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'foods',
+		};
+
+		mLab.listDocuments(options, callback);
 	};
 
 	var getFoodByDate = function(date, callback) {
-		Food.find({date: date}).exec(function(err, doc) {
-			callback(err, doc);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'foods',
+			query: '{ "date": "' + date + '" }',
+			findOne: true
+		};
+
+		mLab.listDocuments(options, callback);
 	};
 
 	var updateFood = function(food, callback) {
-		Food.update({date: food.date}, food, function(err) {
-			callback(err);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'foods',
+			query: '{ "date": "' + food.date + '" }',
+			data: food
+		};
+
+		mLab.updateDocuments(options, callback);
 	};
 
 	var deleteFood = function(date, callback) {
-		Food.remove({date: date}, function(err) {
-			callback(err);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'foods',
+			query: '{ "date": "' + date + '" }',
+		};
+
+		mLab.deleteDocuments(options, callback);
 	};
 
 	var saveNews = function(news, callback) {
-		new News(news).save(function(error) {
-			callback(error);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'news',
+			documents: news
+		};
+
+		mLab.insertDocuments(options, callback);
 	};
 
 	var getNews = function(callback) {
-		News.find({}).sort({date: -1}).limit(4).exec(function(err, doc) {
-			callback(err, doc);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'news',
+			limit: 4,
+			sortOrder: '{ "date": -1 }'
+		};
+
+		mLab.listDocuments(options, callback);
 	};
 
 	var getAllNews = function(callback) {
-		News.find({}).sort({date: -1}).exec(function(err, doc) {
-			callback(err, doc);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'news',
+			sortOrder: '{ "date": -1 }'
+		};
+
+		mLab.listDocuments(options, callback);
 	};
 
 	var getRoot = function(root, callback) {
-		Root.find(root, function(err, doc) {
-			callback(err, doc);
-		});
+		var name = root.username,
+			password = root.password;
+
+		var options = {
+			database: 'rest',
+			collectionName: 'roots',
+			query: '{ "username": "' + name + '", "password": "' + password + '"}'
+		};
+
+		mLab.listDocuments(options, callback);
 	};
 
 	var getNewsByDate = function(date, callback) {
-		News.find({date: date}).limit(1).exec(function(err, doc) {
-			callback(err, doc);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'news',
+			query: '{ "date": "' + date + '" }'
+		};
+
+		mLab.listDocuments(options, callback);
 	};
 
 	var updateNewsByDate = function(news, callback) {
-		News.update({date: news.date}, {title: news.title, author: news.author, body: news.body}, function(err) {
-			callback(err);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'news',
+			query: '{ "date": "' + news.date + '" }',
+			data: news
+		};
+
+		mLab.updateDocuments(options, callback);
 	};
 
 	var deleteNewsByDate = function(date, callback) {
-		News.remove({date: date}, function(err) {
-			callback(err);
-		});
+		var options = {
+			database: 'rest',
+			collectionName: 'news',
+			query: '{ "date": "' + date + '" }'
+		};
+
+		mLab.deleteDocuments(options, callback);
 	};
 
 	return {
@@ -161,7 +180,6 @@ var CRUD = function() {
 		updateNewsByDate: updateNewsByDate,
 		getAllNews: getAllNews,
 		deleteNewsByDate: deleteNewsByDate,
-		addSettings: addSettings,
 		updateSettings: updateSettings,
 		getSettings: getSettings,
 		updateIntro: updateIntro,
